@@ -1,0 +1,86 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+img.logo{
+    vertical-align: middle;
+    width: 52px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+}
+
+.navbar-brand{
+    background: url(../img/PearConsulting.png) no-repeat center 70%;
+    width:238px;
+    height: 56px;
+}
+
+.navbar-inverse {
+    background-color: #293835;
+}
+
+
+.navbar-inverse .navbar-nav>.active>a, 
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.active>a:focus {
+    background-color: #293835;
+}
+
+.progress { 
+    position: relative; 
+    width: 400px; 
+    border: 1px solid #ddd; 
+    padding: 1px; 
+    border-radius: 3px; 
+}
+/*.bar { 
+    background-color: #B4F5B4; 
+    width: 0%; 
+    height:20px; 
+    border-radius: 3px; 
+}
+.percent { 
+    position: absolute; 
+    display:inline-block; 
+    top: 3px; 
+    left: 48%; 
+}*/
