@@ -1,0 +1,35 @@
+
+	<div class="row collapse" id="upload-section">
+		<div class="col-md-8 well">
+			<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<form id="upload-form" action="{% url 'duedilligence:upload_xhr' %}" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="id_processor" class="control-label">Processor:</label>
+					<div>
+						<p>{{ form.processor }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="id_upload" class="control-label" >Document to upload:</label>
+					<div >						
+						{{ form.upload }}					
+					</div>
+				</div>
+				<div class="progress" style="display: none">
+        			<div class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+        				<span class="percent">0%</span>
+        			</div>
+    			</div>    
+    			<div id="status"></div>
+				<div class="form-group">
+					<div >
+						<button type="submit" id="submit-btn" class="btn btn-primary">Upload</button>
+						<a id="upload-cancel-btn" href="#" class="btn btn-default">Cancel</a>
+						<a href="{% url 'duedilligence:user_docs' %}" id="upload-ok-btn" class="btn btn-default" style="display:none">OK</a> 
+					</div>
+				</div>
+			</form>			
+		</div>
+	</div>
+

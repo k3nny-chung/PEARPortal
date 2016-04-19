@@ -1,0 +1,54 @@
+{% if documents %}
+		<div class="table-responsive">
+			<table class="table table-condensed">
+				<caption style="text-align: left; padding-top: 10px; padding-bottom: 10px;">{{ documents.paginator.count }} documents found</caption>
+				<tr class="row">
+					<th class="col-md-3">File Name</th>
+					<th class="col-md-3"></th>
+					<th class="col-md-3">Processor</th>
+					<th class="col-md-3" >Date Uploaded</th>
+				</tr>
+				{% for d in documents %}
+				<tr id="row-{{ d.id }}" class="row">
+					<td class="col-md-3">
+						<i class="fa fa-file-text-o" aria-hidden="true"></i>
+						<a href="{{ d.upload.url }}">&nbsp;{{ d }}</a>
+					</td>	
+					<td class="col-md-3"><a id="doc-delete-{{ d.id }}" href="#" class="btn btn-danger" aria-label="Delete" data-toggle="modal" title="Delete" data-target="#delete-confirm-modal" data-docid="{{ d.id }}" data-file="{{ d }}"><i class="fa fa-trash-o" title="Delete" aria-hidden="true"></i></a></td>
+					<td class="col-md-3">{{ d.processor }}</td>
+					<td class="col-md-3">{{ d.date_uploaded }}</td>
+				</tr>	
+				{% endfor %}
+			</table>
+		</div>
+		{% if documents.paginator.num_pages > 1 %}
+		<div class="row">			
+			<div class="col-md-offset-10 col-md-2">
+				<nav>
+					<ul class="pagination pagination-sm"> 
+						{% if documents.has_previous %}				
+						<li>				
+							<a href="?page={{ documents.previous_page_number }}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;Previous</span>
+							</a>
+						</li>
+						{% endif %}
+						<li class="active">
+							<a href="#">{{ documents.number }} of {{ documents.paginator.num_pages }}<span class="sr-only">(current)</span></a>
+						</li>
+						{% if documents.has_next %}
+						<li>
+							<a href="?page={{ documents.next_page_number }}" aria-label="Next">
+								<span aria-hidden="true">&raquo;Next</span>
+							</a>
+						</li>
+						{% endif %}
+					</ul>				
+				</nav>
+			</div>			
+		</div>
+		{% endif %}
+	</div>
+{% else %}
+	<p>No uploaded documents</p>
+{% endif %}

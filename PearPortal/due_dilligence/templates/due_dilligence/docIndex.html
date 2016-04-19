@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Subscribed processors </h1>
+<div class="row">
+	<div class="col-md-8">
+	{% if processors %}
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		
+			{% for p in processors %}
+				{% if p.document_set.count > 0 %}
+				<div class="panel panel-info">
+    				<div class="panel-heading" role="tab" id="heading-{{ p.id }}">
+      					<h4 class="panel-title">
+        					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ p.id }}" aria-expanded="true" aria-controls="collapse-{{ p.id }}">
+        						<i class="fa fa-folder-o" aria-hidden="true"></i>&nbsp;
+          						{{ p.company_name }}
+        					</a>
+      					</h4>
+    				</div>
+    				<div id="collapse-{{ p.id }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-{{ p.id }}">
+      					<div class="panel-body">
+       						<ul style="list-style-type: none">
+								{% for document in p.document_set.all %}
+									{% if document.is_published %}
+									<li><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;
+										<a href="{{ document.upload.url }}">{{ document }}</a>
+									</li>
+									{% endif %}	
+								{% endfor %}
+							</ul>
+      					</div>
+    				</div>
+  				</div>				
+				{% endif %}
+			{% endfor %}		
+		</div>
+	{% else %}
+		<p>No subscribed processors.</p>
+	{% endif %}
+</div>
+</div>
+{% endblock content %}
