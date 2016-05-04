@@ -5,9 +5,6 @@ Django settings for PearPortal project.
 from os import path
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 ALLOWED_HOSTS = (
     'localhost',
 )
@@ -20,11 +17,11 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Pear',
+        'USER': 'k3nny',
+        'PASSWORD': 'Kuany3w9002',
+        'HOST': 'k3nny.mysql.pythonanywhere-services.com',
         'PORT': '',
     }
 }
@@ -59,7 +56,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/docs/'
+MEDIA_ROOT = '/home/k3nny/PEARPortal/PearPortal/docs/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -75,6 +72,7 @@ MEDIA_URL = '/docs/'
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/k3nny/PEARPortal/PearPortal/static/'
 SITE_ROOT = path.dirname(path.realpath(__file__))
 
 # Additional locations of static files
@@ -117,6 +115,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.request',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -137,12 +136,6 @@ ROOT_URLCONF = 'PearPortal.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'PearPortal.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or
-    # "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -194,3 +187,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'duedilligence:index'
 
+try:
+    from .local_settings import *
+except ImportError as e:
+    pass

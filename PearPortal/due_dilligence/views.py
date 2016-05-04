@@ -4,25 +4,48 @@ from django.template import loader
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Document
+from .models import Document, UserUploadedDocument, Material
 from .forms import DocForm
 
 PAGE_SIZE = 20
+
+@login_required
+def dasboard(request):	
+	materials = Material.objects.filter(materialprocessor__subscribed_users = request.user).order_by('name')
+
+	context = {}
+	for m in materials:
+		context[m.id] = { 
+			'material': m, 
+			'processors': m.materialprocessor_set.filter(subscribed_users = request.user),
+		}
+
+	return render(request, 'due_dilligence/dashboard.html', { 'materials': context })
+
+
 
 @login_required
 def doc_index(request):
 	#docs = Document.objects.filter(processor__in = request.user.materialprocessor_set.all())
 	processors = request.user.materialprocessor_set.all()
 	template = loader.get_template('due_dilligence/docIndex.html')
+
 	context = { 
 		'processors' : processors, 
 	}
+
+	if request.GET.get('id'):
+		try:
+			req_processor = int(request.GET.get('id'))
+			context['requested_processor'] = req_processor
+		except ValueError:
+			pass
 
 	return HttpResponse(template.render(context, request))
 
 @login_required
 def user_uploaded_docs(request):
-	docs_list = Document.objects.filter(uploaded_by = request.user).order_by('-date_uploaded')
+	docs_list = UserUploadedDocument.objects.filter(uploaded_by = request.user).order_by('-date_uploaded')
 	paginator = Paginator(docs_list, PAGE_SIZE)
 	form = DocForm()
 	page = request.GET.get('page')
@@ -70,11 +93,11 @@ def upload_doc_xhr(request):
 @login_required
 def delete_doc_xhr(request, doc_id):
 	if request.method == "POST":		
-		doc = Document.objects.get(id = doc_id)
+		doc = UserUploadedDocument.objects.get(id = doc_id)
 		if doc:
 			if doc.uploaded_by == request.user:
 				doc.delete()
-				docs_list = Document.objects.filter(uploaded_by = request.user).order_by('-date_uploaded')
+				docs_list = UserUploadedDocument.objects.filter(uploaded_by = request.user).order_by('-date_uploaded')
 				paginator = Paginator(docs_list, PAGE_SIZE)
 				page = request.POST.get('page')
 				try:

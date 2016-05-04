@@ -28,8 +28,9 @@
            
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    {% url 'duedilligence:index' as dashboard_url %}                    
-                    <li {% if request.path == dashboard_url %} class="active" {% endif %}>
+                    {% url 'duedilligence:index' as processor_url %}
+                    {% url 'duedilligence:dashboard' as dashboard_url %}                    
+                    <li {% if request.path == dashboard_url or request.path == processor_url %} class="active" {% endif %}>
                         <a href="{{ dashboard_url }}">
                             <i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;DASHBOARD
                         </a>

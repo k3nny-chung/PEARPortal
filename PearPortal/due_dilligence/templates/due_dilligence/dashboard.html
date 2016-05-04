@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Dashboard</h1>
+	{% if materials %}
+    <div class="table-responsive">
+		<table class="table">
+			<tr class="row">
+				<th>Material</th>
+				<th>Description</th>
+				<th>%</th>
+				<th>Downstream</th>
+				<th>Downstream process</th>
+			</tr>
+			{% for k, v in materials.items %}			
+				{% for p in v.processors %}
+				    {% if forloop.first %}
+					<tr class="row">
+						<td rowspan="{{ v.processors | length }}">{{ v.material.name }}</td>
+						<td rowspan="{{ v.processors | length }}">{{ v.material.description }}</td>
+						<td rowspan="{{ v.processors | length }}">{{ v.material.recycling_rate }}</td>
+						<td>
+							<a href="{% url 'duedilligence:index' %}?id={{ p.id }}">{{ p.company_name }}</a>
+						</td>
+						<td>{{ p.downstream_process }}</td>
+					</tr>
+					{% else %}
+					<tr class="row">
+						<td>
+							<a href="{% url 'duedilligence:index' %}?id={{ p.id }}">{{ p.company_name }}</a>
+						</td>
+						<td>{{ p.downstream_process }}</td>
+					</tr>
+					{% endif %}
+				{% endfor %}		
+			{% endfor %}	
+		</table>
+	</div>		
+	{% else %}
+	<p>No subscribed processors</p>
+	{% endif %}
+{% endblock content %}

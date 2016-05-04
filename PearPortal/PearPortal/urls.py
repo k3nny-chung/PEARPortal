@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^logout$',
         'django.contrib.auth.views.logout',
         {
-            'next_page': 'home',
+            'next_page': 'login',
         },
         name='logout'),
 
@@ -45,6 +45,6 @@ urlpatterns = [
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^duedilligence/', include('due_dilligence.urls')),
+    url(r'^', include('due_dilligence.urls')),
 ]
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

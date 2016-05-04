@@ -1,10 +1,10 @@
 from django.forms import ModelForm, FileInput, Select
-from .models import Document
+from .models import UserUploadedDocument
 
 class DocForm(ModelForm):
 	class Meta:
-		model = Document
-		exclude = ['is_published', 'uploaded_by' ]
+		model = UserUploadedDocument
+		exclude = ['uploaded_by' ]
 		widgets = {
 			'processor': Select(attrs={
 				'class': 'form-control', 

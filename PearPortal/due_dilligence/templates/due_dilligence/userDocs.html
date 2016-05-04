@@ -110,6 +110,7 @@
 					var percentVal = '0%';
 					bar.width(percentVal)
 					percent.html(percentVal);
+					$(".fa-check-circle").hide();
 					$("#submit-btn").prop("disabled", true);					
 				},
 		    	uploadProgress: function(event, position, total, percentComplete) {		        
@@ -122,6 +123,7 @@
 		        	var percentVal = '100%';
 		        	bar.width(percentVal)
 		        	percent.html(percentVal);
+		        	$(".fa-check-circle").show();
 		        	$("#upload-cancel-btn").hide();
 		        	$("#upload-ok-btn").show();	
 		    	},
@@ -139,6 +141,6 @@
  			});
  		})();
  		 		
-		$.validate();
+		$.validate({ validateOnBlur: false });
 </script>
 {% endblock scripts %}
